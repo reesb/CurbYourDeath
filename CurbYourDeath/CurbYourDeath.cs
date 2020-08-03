@@ -5,15 +5,8 @@ using RoR2;
 using UnityEngine;
 
 using System;
-using BepInEx.Configuration;
-using RoR2.UI;
-using UnityEngine.Networking;
 using System.IO;
 using System.Linq;
-using UnityEngine.SceneManagement;
-using AK.Wwise;
-using IL.RoR2.Audio;
-using EntityStates.Huntress;
 using MonoMod.Cil;
 
 namespace CurbYourDeath
@@ -92,12 +85,5 @@ namespace CurbYourDeath
                 });
             };
         }
-
-
-        public void Update()
-        {
-
-        }
-
     }
 }
