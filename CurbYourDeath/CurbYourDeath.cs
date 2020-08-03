@@ -53,14 +53,10 @@ namespace CurbYourDeath
             Chat.AddMessage("Loaded CurbYourDeath!");
             CurbYourDeath.AddSoundBank();
 
-            uint soundId = 2106046636;
             uint eventId = 0;
-            uint bgMusicId = RoR2.WwiseUtils.CommonWwiseIds.gameplay;
 
             On.RoR2.GameOverController.CallRpcClientGameOver += (orig, self) =>
                 {
-                    AkSoundEngine.StopPlayingID(bgMusicId);
-                    //eventId = AkSoundEngine.PostEvent(2106046636, NetworkUser.readOnlyLocalPlayersList[0].GetCurrentBody().gameObject);
                     eventId = AkSoundEngine.PostEvent(2106046636, base.gameObject);
                     curbPlaying = true;
                     orig(self);
