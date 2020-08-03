@@ -12,7 +12,7 @@ using MonoMod.Cil;
 namespace CurbYourDeath
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.Arbition.CurbYourDeath", "Curb Your Death", "1.0.0")]
+    [BepInPlugin("com.Arbition.CurbYourDeath", "Curb Your Death", "1.0.1")]
     public class CurbYourDeath : BaseUnityPlugin
     {
 
