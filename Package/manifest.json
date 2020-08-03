@@ -1,7 +1,7 @@
 {
-    "name": "Curb Your Death",
-    "version_number": "1.0.0",
-    "website_url": "https://github.com/reesb/CurbYourDeath",
+    "name": "Curb_Your_Death",
     "description": "Soundmod that plays frolic from curb your enthusiasm when you lose the run.",
+    "website_url": "https://github.com/reesb/CurbYourDeath",
+    "version_number": "1.0.0",
     "dependencies": []
 }
