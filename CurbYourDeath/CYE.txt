@@ -1,0 +1,6 @@
+Event	ID	Name			Wwise Object Path	Notes
+	2106046636	PlayCYE			\Default Work Unit\PlayCYE	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	947974580	frolic (CYE)	C:\Users\Rees\Documents\WwiseProjects\CurbYourDeath\.cache\Windows\SFX\frolic (CYE)_A1793BE9.wem		\Actor-Mixer Hierarchy\Default Work Unit\frolic (CYE)		1050363
+
