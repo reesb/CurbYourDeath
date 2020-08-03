@@ -16,6 +16,8 @@ namespace CurbYourDeath
     public class CurbYourDeath : BaseUnityPlugin
     {
 
+        private uint eventId;
+
         public static bool curbPlaying;
         public static void AddSoundBank()
         {
@@ -50,10 +52,9 @@ namespace CurbYourDeath
 
         public void Awake()
         {
-            Chat.AddMessage("Loaded CurbYourDeath!");
             CurbYourDeath.AddSoundBank();
 
-            uint eventId = 0;
+
 
             On.RoR2.GameOverController.CallRpcClientGameOver += (orig, self) =>
                 {
