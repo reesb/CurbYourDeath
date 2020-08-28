@@ -85,7 +85,6 @@ C:\Users\Rees\Documents\Sandbox\CurbYourDeath\CurbYourDeath\bin\Debug\netstandar
 C:\Users\Rees\Documents\Sandbox\CurbYourDeath\CurbYourDeath\bin\Debug\netstandard2.0\0Harmony.xml
 C:\Users\Rees\Documents\Sandbox\CurbYourDeath\CurbYourDeath\bin\Debug\netstandard2.0\BepInEx.xml
 C:\Users\Rees\Documents\Sandbox\CurbYourDeath\CurbYourDeath\bin\Debug\netstandard2.0\BepInEx.Harmony.xml
-C:\Users\Rees\Documents\Sandbox\CurbYourDeath\CurbYourDeath\bin\Debug\netstandard2.0\BepInEx.MonoMod.Loader.pdb
 C:\Users\Rees\Documents\Sandbox\CurbYourDeath\CurbYourDeath\bin\Debug\netstandard2.0\BepInEx.Preloader.xml
 C:\Users\Rees\Documents\Sandbox\CurbYourDeath\CurbYourDeath\bin\Debug\netstandard2.0\MonoMod.xml
 C:\Users\Rees\Documents\Sandbox\CurbYourDeath\CurbYourDeath\bin\Debug\netstandard2.0\MonoMod.RuntimeDetour.xml
@@ -94,3 +93,5 @@ C:\Users\Rees\Documents\Sandbox\CurbYourDeath\CurbYourDeath\bin\Debug\netstandar
 C:\Users\Rees\Documents\Sandbox\CurbYourDeath\CurbYourDeath\obj\Debug\netstandard2.0\CurbYourDeath.csproj.CopyComplete
 C:\Users\Rees\Documents\Sandbox\CurbYourDeath\CurbYourDeath\obj\Debug\netstandard2.0\CurbYourDeath.dll
 C:\Users\Rees\Documents\Sandbox\CurbYourDeath\CurbYourDeath\obj\Debug\netstandard2.0\CurbYourDeath.pdb
+C:\Users\Rees\Documents\Sandbox\CurbYourDeath\CurbYourDeath\bin\Debug\netstandard2.0\HGCSharpUtils.dll
+C:\Users\Rees\Documents\Sandbox\CurbYourDeath\CurbYourDeath\bin\Debug\netstandard2.0\HGUnityUtils.dll

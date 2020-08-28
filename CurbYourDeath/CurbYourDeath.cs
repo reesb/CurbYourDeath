@@ -12,13 +12,14 @@ using MonoMod.Cil;
 namespace CurbYourDeath
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.Arbition.CurbYourDeath", "Curb Your Death", "1.0.1")]
+    [BepInPlugin("com.Arbition.CurbYourDeath", "Curb Your Death", "1.1.0")]
     public class CurbYourDeath : BaseUnityPlugin
     {
 
         private uint eventId;
 
         public static bool curbPlaying;
+
         public static void AddSoundBank()
         {
             byte[] array = CurbYourDeath.LoadEmbeddedResource("CurbYourDeath.CYE.bnk");
@@ -54,20 +55,24 @@ namespace CurbYourDeath
         {
             CurbYourDeath.AddSoundBank();
 
-
-
-            On.RoR2.GameOverController.CallRpcClientGameOver += (orig, self) =>
+            On.RoR2.GlobalEventManager.OnPlayerCharacterDeath += (orig, self, damageReport, victimNetworkUser) =>
                 {
-                    eventId = AkSoundEngine.PostEvent(2106046636, base.gameObject);
-                    curbPlaying = true;
-                    orig(self);
+                    int extraLives = damageReport.victimBody.inventory.GetItemCount(ItemIndex.ExtraLife);
+                    if (extraLives == 0)
+                    {
+                        eventId = AkSoundEngine.PostEvent(2106046636, base.gameObject);
+                        curbPlaying = true;
+                    }
+                    orig(self, damageReport, victimNetworkUser);
                 };
+
             On.RoR2.SceneObjectToggleGroup.OnServerSceneChanged += (orig, self) =>
                 {
                     AkSoundEngine.StopPlayingID(eventId, 5);
                     curbPlaying = false;
                     orig(self);
                 };
+
             IL.RoR2.MusicController.LateUpdate += il =>
             {
                 var cursor = new ILCursor(il);
