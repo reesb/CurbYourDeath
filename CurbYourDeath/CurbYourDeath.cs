@@ -1,8 +1,9 @@
 ﻿using System.Reflection;
 using BepInEx;
-using R2API.AssetPlus;
 using RoR2;
 using UnityEngine;
+using R2API;
+using R2API.Utils;
 
 using System;
 using System.IO;
@@ -12,79 +13,39 @@ using MonoMod.Cil;
 namespace CurbYourDeath
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.Arbition.CurbYourDeath", "Curb Your Death", "1.1.0")]
+    [BepInPlugin("com.Arbition.CurbYourDeath", "Curb Your Death", "1.2.0")]
+    [R2APISubmoduleDependency(nameof(SoundAPI))]
     public class CurbYourDeath : BaseUnityPlugin
     {
 
         private uint eventId;
-
         public static bool curbPlaying;
-
-        public static void AddSoundBank()
-        {
-            byte[] array = CurbYourDeath.LoadEmbeddedResource("CurbYourDeath.CYE.bnk");
-            if (array != null)
-            {
-                SoundBanks.Add(array);
-                return;
-            }
-            Debug.LogError("SoundBank Fetching Failed");
-        }
-
-        private static byte[] LoadEmbeddedResource(string resourceName)
-        {
-            Assembly executingAssembly = Assembly.GetExecutingAssembly();
-            resourceName = executingAssembly.GetManifestResourceNames().Single((string str) => str.EndsWith(resourceName));
-            byte[] result;
-            using (Stream manifestResourceStream = executingAssembly.GetManifestResourceStream(resourceName))
-            {
-                Stream stream = manifestResourceStream;
-                if (stream == null)
-                {
-                    throw new InvalidOperationException();
-                }
-                using (BinaryReader binaryReader = new BinaryReader(stream))
-                {
-                    result = binaryReader.ReadBytes(Convert.ToInt32(manifestResourceStream.Length.ToString()));
-                }
-            }
-            return result;
-        }
 
         public void Awake()
         {
-            CurbYourDeath.AddSoundBank();
+            using (var bankStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("CurbYourDeath.CYE.bnk"))
+            {
+                var bytes = new byte[bankStream.Length];
+                bankStream.Read(bytes, 0, bytes.Length);
+                SoundAPI.SoundBanks.Add(bytes);
+            }
 
             On.RoR2.GlobalEventManager.OnPlayerCharacterDeath += (orig, self, damageReport, victimNetworkUser) =>
+            {
+                int extraLives = damageReport.victimBody.inventory.GetItemCount(RoR2Content.Items.ExtraLife);
+                if (extraLives == 0)
                 {
-                    int extraLives = damageReport.victimBody.inventory.GetItemCount(ItemIndex.ExtraLife);
-                    if (extraLives == 0)
-                    {
-                        eventId = AkSoundEngine.PostEvent(2106046636, base.gameObject);
-                        curbPlaying = true;
-                    }
-                    orig(self, damageReport, victimNetworkUser);
-                };
+                    eventId = AkSoundEngine.PostEvent(2106046636, base.gameObject);
+                    curbPlaying = true;
+                }
+                orig(self, damageReport, victimNetworkUser);
+            };
 
             On.RoR2.SceneObjectToggleGroup.OnServerSceneChanged += (orig, self) =>
-                {
-                    AkSoundEngine.StopPlayingID(eventId, 5);
-                    curbPlaying = false;
-                    orig(self);
-                };
-
-            IL.RoR2.MusicController.LateUpdate += il =>
             {
-                var cursor = new ILCursor(il);
-
-                cursor.GotoNext(i => i.MatchStloc(out _));
-                cursor.EmitDelegate<Func<bool, bool>>(b =>
-                {
-                    if (b)
-                        return true;
-
-                    return curbPlaying;
-                });
+                AkSoundEngine.StopPlayingID(eventId, 5);
+                curbPlaying = false;
+                orig(self);
             };
         }
     }
